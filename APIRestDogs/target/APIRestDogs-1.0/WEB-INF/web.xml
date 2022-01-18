@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!-- SECRET KEY FOR JWT AUTHENTICATION -->
+    <env-entry> 
+        <env-entry-name>SECRET_KEY</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>la_manuel_password</env-entry-value> 
+    </env-entry>
+    <!-- CREDENTIALS DB-->
+    <env-entry> 
+        <env-entry-name>DRIVER_DB</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>com.mysql.jdbc.Driver</env-entry-value> 
+    </env-entry>
+    <env-entry> 
+        <env-entry-name>USER_DB</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>root</env-entry-value> 
+    </env-entry>
+    <env-entry> 
+        <env-entry-name>PASSWORD_DB</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value></env-entry-value> 
+    </env-entry>
+    <env-entry> 
+        <env-entry-name>HOST_DB</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>localhost:3306</env-entry-value> 
+    </env-entry>
+    <env-entry> 
+        <env-entry-name>DB_NAME</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>db_dogs_test_api_rest_java_servlet</env-entry-value> 
+    </env-entry>
+</web-app>
