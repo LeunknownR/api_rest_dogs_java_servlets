@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -27,7 +28,10 @@ public class FilterAuthentication implements Filter {
     public void doFilter(ServletRequest request, 
             ServletResponse response, FilterChain chain)
         throws IOException, ServletException {
-        if (isLoginRoute(request)) {
+        // Obteniendo ruta actual
+        final String currentPath = ((HttpServletRequest) request).getRequestURI();
+        // Continuar si no son las rutas controladores o en la ruta de login
+        if (!isPathController(currentPath) || isInThisPath(currentPath, "/login")) {
             chain.doFilter(request, response);
             return;
         }
@@ -36,7 +40,7 @@ public class FilterAuthentication implements Filter {
             chain.doFilter(request, response);
             return;
         }
-        // Restringiendo y respiendo en caso no haya token
+        // Restringiendo y respondiendo en caso no haya token
         HelperController.templatePrintable(FormatResponse.getErrorResponse("Unauthorized", 401), (HttpServletResponse) response);
     }
 
@@ -48,8 +52,10 @@ public class FilterAuthentication implements Filter {
         String tokenWithoutBearer = token.split("bearer ")[1].trim();
         return jwtAuth.verifyToken(tokenWithoutBearer, RoleAuthJWT.ADMIN_ROLE);
     }
-    private boolean isLoginRoute(ServletRequest req) {
-        return ((HttpServletRequest) req).getRequestURI().equals("/TestAPIRestServlet/api/login");
+    private boolean isPathController(final String currentPath) {
+        return Arrays.stream(ControllerPatterns.PATHS).anyMatch(PATH -> currentPath.equals("/TestAPIRestServlet/api" + PATH));
     }
-    
+    private boolean isInThisPath(final String currentPath, final String thisPath) {
+        return currentPath.equals("/TestAPIRestServlet/api" + thisPath);
+    }
 }

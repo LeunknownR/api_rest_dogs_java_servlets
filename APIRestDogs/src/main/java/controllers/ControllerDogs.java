@@ -1,6 +1,5 @@
 package controllers;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import utils.FormatResponse;
 import utils.HelperController;

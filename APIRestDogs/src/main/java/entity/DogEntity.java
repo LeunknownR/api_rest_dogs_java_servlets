@@ -171,16 +171,16 @@ public class DogEntity extends EntityParent<DogDTO> {
         return idParam != null;
     }
     private boolean isValidPropertyValueString(String value, int limitDown, int limitUp) {
-        int length = value.length();
+        final int length = value.length();
         return length >= limitDown && length <= limitUp;
     }
     private boolean isValidPropertyValueInteger(int value, Integer limitDown, Integer limitUp) {
-        return value >= (limitDown != null ? limitDown : Double.MIN_VALUE) && 
-                value <= (limitUp != null ? limitUp : Double.MAX_VALUE);
-    }
-    private boolean isValidPropertyValueDouble(double value, Double limitDown, Double limitUp) {
         return value >= (limitDown != null ? limitDown : Integer.MIN_VALUE) && 
                 value <= (limitUp != null ? limitUp : Integer.MAX_VALUE);
+    }
+    private boolean isValidPropertyValueDouble(double value, Double limitDown, Double limitUp) {
+        return value >= (limitDown != null ? limitDown : Double.MIN_VALUE) && 
+                value <= (limitUp != null ? limitUp : Double.MAX_VALUE);
     }
     private int incrementQuantityNullValues(String key, JsonObject jObj, int previousValue) {
         return isNullPropertyOfJson(jObj, key) ? previousValue + 1 : previousValue;
