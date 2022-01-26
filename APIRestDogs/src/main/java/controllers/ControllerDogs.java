@@ -122,7 +122,7 @@ public class ControllerDogs extends HttpServlet {
             final HttpServletResponse res) throws ServletException, IOException {
         try {
             // Convirtiendo a DogDTO y validando parámetros de entrada
-            final JsonObject body = getRequestBody(req);
+            final JsonObject body = HelperController.getRequestBody(req);
             if (body == null) {
                 HelperController.templatePrintable(
                     FormatResponse.getErrorResponse("The request body doesn't have json format", 400), res);
@@ -154,7 +154,7 @@ public class ControllerDogs extends HttpServlet {
             final HttpServletResponse res) throws ServletException, IOException {
         try {
             // Convirtiendo a DogDTO y validando parámetros de entrada
-            final JsonObject body = getRequestBody(req);
+            final JsonObject body = HelperController.getRequestBody(req);
             if (body == null) {
                 HelperController.templatePrintable(
                     FormatResponse.getErrorResponse("The request body doesn't have json format", 400), res);
@@ -186,7 +186,7 @@ public class ControllerDogs extends HttpServlet {
             throws ServletException, IOException {
         try {
             // Convirtiendo a DogDTO y validando parámetros de entrada
-            final JsonObject body = getRequestBody(req);
+            final JsonObject body = HelperController.getRequestBody(req);
             if (body == null) {
                 HelperController.templatePrintable(
                     FormatResponse.getErrorResponse("The request body doesn't have json format", 400), res);
@@ -222,15 +222,7 @@ public class ControllerDogs extends HttpServlet {
     }
     
     
-    private JsonObject getRequestBody(final HttpServletRequest req) {
-        try {
-            // Convirtiendo a DogDTO y validando parámetros de entrada
-            return (JsonObject) HelperController
-                    .fromBodyToObject(req.getInputStream(), JsonObject.class);
-        } catch (Exception ex) {
-            return null;
-        }
-    }
+    
     //</editor-fold>
     
 }

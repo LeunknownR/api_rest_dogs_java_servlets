@@ -46,8 +46,8 @@ INSERT INTO race_dog(_race_dog) VALUES
 INSERT INTO dog(_name, weight, id_race, id_size, owner, description) VALUES
     ("Nerón", 48, 2, 2, "Manuel Rivera", "Es un perro gordito que le gusta comer y dormir mucho."),
     ("Cesar", 20.5, 5, 1, "Maycol Soto" , "Es un cachorrito equisde."), 
-    ("Perro 2", 30.85, 4, 2, "Un pelón de mierda" , "No sé... Un perro asesino de esos."), 
-    ("Jake", 38.2, 2, 2, "Finn The Human" , "Es un perro parlante y mutante que se comió la gomu gomu no mi.");
+    ("Perro 2", 30.85, 4, 2, "Joseph Joestar" , "No sé... Un perro asesino de esos."), 
+    ("Jake", 38.2, 2, 2, "Finn The Human" , "Es un perro parlante y mutante que se comió la gomu gomu no mi :u.");
 
 
 
@@ -151,8 +151,12 @@ CREATE PROCEDURE sp_carry_dog(
     IN __id INT
 ) 
 BEGIN
-    UPDATE dog SET carried = 1 WHERE id = __id;
-    SELECT 'SUCCESS' AS 'RES';
+	DECLARE var_id INT;
+	SET var_id = (SELECT id FROM dog WHERE id = __id AND carried = 0);
+    	IF var_id IS NOT NULL THEN
+		UPDATE dog SET carried = 1 WHERE id = __id;
+    	END IF;
+    	SELECT IF (var_id IS NOT NULL, 'SUCCESS', 'ERROR') AS 'RES';
 END
 // 
 

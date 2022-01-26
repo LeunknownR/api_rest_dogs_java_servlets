@@ -25,13 +25,14 @@ public class ControllerLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final JsonObject body = (JsonObject) HelperController
-                .fromBodyToObject(request.getInputStream(), JsonObject.class);
+        final JsonObject body = HelperController.getRequestBody(request);
         HelperController.templatePrintable(verifyAccount(body), response);
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Helpers HTTP methods">
     private FormatResponse verifyAccount(final JsonObject body) {
+        if (body == null)
+            return FormatResponse.getErrorResponse("The request body doesn't have json format", 400);
         JsonElement user = body.get("user"), password = body.get("password");
         if (user == null || password == null) 
             return FormatResponse.getErrorResponse("Mising parameters", 400);
